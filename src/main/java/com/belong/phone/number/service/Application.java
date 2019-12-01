@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @OpenAPIDefinition(info = @Info(
         title = "Phone book service",
-        description = "a service to manage connectivity of phone number to clients",
+        description = "A service to manage connectivity of phone number to customers",
         version = "1.0.0",
         contact = @Contact(
                 name = "Henry-John Davis",

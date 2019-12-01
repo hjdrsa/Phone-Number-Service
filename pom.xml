@@ -12,7 +12,7 @@
     <artifactId>phone-number-service</artifactId>
     <version>1.0.0</version>
     <name>phone-number-service</name>
-    <description>a Service to manage connectivity of phone number to customers</description>
+    <description>A service to manage connectivity of phone number to customers</description>
 
     <properties>
         <java.version>11</java.version>

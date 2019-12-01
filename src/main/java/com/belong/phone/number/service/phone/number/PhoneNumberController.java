@@ -92,7 +92,7 @@ public class PhoneNumberController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(
             summary = "Activate a phone number",
-            description = "Activate a phone number by linking the number to a client",
+            description = "Activate a phone number by linking the number to a customer",
             responses = {
                 @ApiResponse(
                         responseCode = "200",

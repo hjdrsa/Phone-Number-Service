@@ -1,6 +1,6 @@
 
 # phone-number-service
-a service to manage connectivity of phone number to customers
+A service to manage connectivity of phone number to customers
 
 ## Prerequisites
  - Git client
