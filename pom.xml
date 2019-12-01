@@ -10,12 +10,14 @@
     </parent>
     <groupId>com.belong</groupId>
     <artifactId>phone-number-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>phone-number-service</name>
-    <description>a Service to manage connectivity of phone number to clients</description>
+    <description>a Service to manage connectivity of phone number to customers</description>
 
     <properties>
         <java.version>11</java.version>
+        <fabric8.generator.fromMode>docker</fabric8.generator.fromMode>
+        <fabric8.generator.from>fabric8/java-centos-openjdk11-jre</fabric8.generator.from>
     </properties>
 
     <dependencies>
@@ -114,6 +116,20 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>fabric8-maven-plugin</artifactId> 
+                <version>3.5.41</version>
+                <configuration>
+                    <generator> 
+                        <config> 
+                            <spring-boot> 
+                                <name>${project.artifactId}:${project.version}</name>
+                            </spring-boot>
+                        </config>
+                    </generator>
+                </configuration>
             </plugin>
         </plugins>
     </build>
