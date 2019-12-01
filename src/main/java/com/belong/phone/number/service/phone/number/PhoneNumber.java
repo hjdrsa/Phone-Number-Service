@@ -1,7 +1,8 @@
 package com.belong.phone.number.service.phone.number;
 
 import com.belong.phone.number.service.customer.Customer;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,8 +15,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Data;
 
-@Entity
+
 @Data
+@Entity
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class, 
+  property = "id")
 public class PhoneNumber implements Serializable {
     
     @Id
@@ -23,10 +28,9 @@ public class PhoneNumber implements Serializable {
     private Long id;
     
     @Column(nullable = false)
-    private Integer number;
+    private String number;
     
     @ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="CUSTOMER_ID")
-    @JsonManagedReference
     private Customer customer;
 }

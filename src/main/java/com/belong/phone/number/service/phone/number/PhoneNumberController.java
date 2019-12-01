@@ -4,8 +4,6 @@ import com.belong.phone.number.service.customer.Customer;
 import com.belong.phone.number.service.customer.CustomerRepo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
 import java.util.Optional;
@@ -51,7 +49,7 @@ public class PhoneNumberController {
     }
 
     @GetMapping(
-            path = "CustomerId/{id}",
+            path = "CustomerId/{customerId}",
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Operation(
@@ -63,7 +61,7 @@ public class PhoneNumberController {
             }
     )
     public ResponseEntity<List<PhoneNumber>> findPhoneNumberByCustomerID(@PathVariable Long customerId) {
-
+        
         Optional<Customer> optionalCustomer = customerRepo.findById(customerId);
 
         if (optionalCustomer.isEmpty()) {
@@ -96,10 +94,6 @@ public class PhoneNumberController {
             )
             @RequestBody PhoneNumberActivationRequest activationRequest){
         
-        if (activationRequest == null || activationRequest.getPhoneNumberId() == null || activationRequest.getCustomerId() == null) {
-            return ResponseEntity.badRequest().build();
-        }
-        
         Optional<PhoneNumber> optionalPhoneNumber = phoneNumberRepo.findById(activationRequest.getPhoneNumberId());
         
         //Check if phone number exists
@@ -124,10 +118,9 @@ public class PhoneNumberController {
             return ResponseEntity.notFound().build();
         }
         
+        //activate phone number
         Customer customer = optionalCustomer.get();
-        
         phoneNumber.setCustomer(customer);
-        
         phoneNumberRepo.saveAndFlush(phoneNumber);
         
         return ResponseEntity.ok(phoneNumber);

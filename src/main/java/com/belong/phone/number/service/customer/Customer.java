@@ -1,7 +1,7 @@
 package com.belong.phone.number.service.customer;
 
 import com.belong.phone.number.service.phone.number.PhoneNumber;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -38,7 +38,7 @@ public class Customer implements Serializable {
     private String surname;
     
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonIgnore
     private List<PhoneNumber> phoneNumbers;
     
 }
