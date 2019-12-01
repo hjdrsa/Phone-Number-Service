@@ -4,6 +4,8 @@ import com.belong.phone.number.service.customer.Customer;
 import com.belong.phone.number.service.customer.CustomerRepo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +38,9 @@ public class PhoneNumberController {
             summary = "Get all phone Numbers",
             description = "Get all the phone numbers",
             responses = {
-                @ApiResponse(responseCode = "200", description = "Successfully retrieved all phone numbers")
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "Successfully retrieved all phone numbers" )
             }
     )
     public ResponseEntity<List<PhoneNumber>> findPhoneNumberAll() {
@@ -56,8 +60,17 @@ public class PhoneNumberController {
             summary = "Number by customer id",
             description = "Get phone number by customer id",
             responses = {
-                @ApiResponse(responseCode = "200", description = "Successfully retrieved phone number by customer id"),
-                @ApiResponse(responseCode = "204", description = "No phone number data found for customer id")
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "Successfully retrieved phone number by customer id"),
+                @ApiResponse(
+                        responseCode = "204",
+                        description = "No phone number data found for customer id",
+                        content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    examples = {
+                                            @ExampleObject(value = "{}")
+                                    }))
             }
     )
     public ResponseEntity<List<PhoneNumber>> findPhoneNumberByCustomerID(@PathVariable Long customerId) {
@@ -81,10 +94,17 @@ public class PhoneNumberController {
             summary = "Activate a phone number",
             description = "Activate a phone number by linking the number to a client",
             responses = {
-                @ApiResponse(responseCode = "200", description = "Successfully retrieved phone number by customer id"),
-                @ApiResponse(responseCode = "404", description = "The phone number or customer id could not be found"),
-                @ApiResponse(responseCode = "409", description = "The phone number has been is already active"),
-                @ApiResponse(responseCode = "400", description = "Bad Request!!!")    
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "Successfully retrieved phone number by customer id"),
+                @ApiResponse(
+                        responseCode = "404",
+                        description = "The phone number id or customer id could not be found",
+                        content = @Content()),
+                @ApiResponse(
+                        responseCode = "409",
+                        description = "The phone number is already active",
+                        content = @Content())
             }
     )
     public ResponseEntity<PhoneNumber> activePhoneNumber(
@@ -105,6 +125,7 @@ public class PhoneNumberController {
         
         //Phone number already active
         if (phoneNumber.getCustomer() != null) {
+            //Phone number already active for this customer
             if (phoneNumber.getCustomer().getId().equals(activationRequest.getCustomerId())) {
                 return ResponseEntity.ok(phoneNumber);
             }
